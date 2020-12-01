@@ -134,42 +134,41 @@ export class ExamplePlatformAccessory {
   togglePower()
   {
     this.platform.log.debug('togglePower');
+
+    let prevBrightness = this.states.Brightness;
+
+    if (this.states.Brightness == 100) {
+      this.states.On = true;
+      this.states.Brightness = 50;
+      this.service.updateCharacteristic(this.platform.Characteristic.On, true);
+      this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 50);
+    }
+    else if (this.states.Brightness > 0 && this.states.Brightness < 100) {
+      this.states.On = false;
+      this.states.Brightness = 0;
+      this.service.updateCharacteristic(this.platform.Characteristic.On, false);
+      this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 0);
+    }
+    else {
+      this.states.On = true;
+      this.states.Brightness = 100;
+      this.service.updateCharacteristic(this.platform.Characteristic.On, true);
+      this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 100);
+    }
+
     let params = {
       airGuid: this.platform.config.macAddress,
       chooseGarden: 0,
       userID: this.platform.config.userID,
-      plantConfig: JSON.stringify({lightTemp: 1 })
+      plantConfig: JSON.stringify({lightTemp: this.states.On ? 1 : 0 })
     };
 
     return this.aerogarden('/api/Custom/UpdateDeviceConfig', params)
         .then(res => {
-          let prevBrightness = this.states.Brightness;
-
-          if (this.states.Brightness == 100) {
-            this.states.On = true;
-            this.states.Brightness = 50;
-            this.service.updateCharacteristic(this.platform.Characteristic.On, true);
-            this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 50);
-          }
-          else if (this.states.Brightness > 0 && this.states.Brightness < 100) {
-            this.states.On = false;
-            this.states.Brightness = 0;
-            this.service.updateCharacteristic(this.platform.Characteristic.On, false);
-            this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 0);
-          }
-          else {
-            this.states.On = true;
-            this.states.Brightness = 100;
-            this.service.updateCharacteristic(this.platform.Characteristic.On, true);
-            this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 100);
-          }
-
           this.platform.log.debug('Changing brightness from ', prevBrightness, ' to ', this.states.Brightness);
-          
         })
         .catch(error => {
-          // this.platform.log.error('setOn', error);
-          // callback(null);
+          this.platform.log.error('setOnError', error);
         });
   }
 
