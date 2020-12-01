@@ -49,8 +49,8 @@ export class ExamplePlatformAccessory {
       .on('get', this.getOn.bind(this));               // GET - bind to the `getOn` method below
 
     // register handlers for the Brightness Characteristic
-    // this.service.getCharacteristic(this.platform.Characteristic.Brightness)
-    //   .on('set', this.setBrightness.bind(this));       // SET - bind to the 'setBrightness` method below
+    this.service.getCharacteristic(this.platform.Characteristic.Brightness)
+      .on('set', this.setBrightness.bind(this));       // SET - bind to the 'setBrightness` method below
 
 
     /**
