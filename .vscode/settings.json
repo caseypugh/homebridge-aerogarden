@@ -4,5 +4,6 @@
     "source.fixAll.eslint": true
   },
   "editor.rulers": [ 140 ],
-  "eslint.enable": true
+  "eslint.enable": true,
+  "python.pythonPath": "/usr/local/opt/python@3.8/bin/python3.8"
 }

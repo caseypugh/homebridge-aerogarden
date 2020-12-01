@@ -1,15 +1,21 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "Aerogarden",
   "pluginType": "platform",
   "singular": true,
   "schema": {
     "type": "object",
     "properties": {
-      "name": {
-        "title": "Name",
+      "userID": {
+        "title": "Your Aerogarden user ID",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": ""
+      },
+      "macAddress": {
+        "title": "The Mac address of your Aerogarden",
+        "type": "string",
+        "required": true,
+        "default": ""
       }
     }
   }
