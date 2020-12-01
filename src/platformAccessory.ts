@@ -160,7 +160,7 @@ export class ExamplePlatformAccessory {
       airGuid: this.platform.config.macAddress,
       chooseGarden: 0,
       userID: this.platform.config.userID,
-      plantConfig: JSON.stringify({lightTemp: this.states.On ? 1 : 0 })
+      plantConfig: JSON.stringify({lightStat: this.states.On ? 1 : 0 })
     };
 
     return this.aerogarden('/api/Custom/UpdateDeviceConfig', params)
