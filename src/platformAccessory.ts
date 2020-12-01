@@ -203,15 +203,15 @@ export class ExamplePlatformAccessory {
             this.states.Brightness = 0;
             this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 0);
           }
-          // else if (res.data[0].lightStat == 1 && this.states.Brightness == 0)
-          // {
-            // this.states.Brightness = 1;
-            // this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 1);
-          // }
-
-          if (!isOn) {
-            callback(null, isOn);
+          else if (res.data[0].lightStat == 1 && this.states.Brightness == 0)
+          {
+            this.states.Brightness = 100;
+            this.service.updateCharacteristic(this.platform.Characteristic.Brightness, 100);
           }
+
+          // if (!isOn) {
+            callback(null, isOn);
+          // }
         })
         .catch(error => {
           this.platform.log.error('getOn', error);
