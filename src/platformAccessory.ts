@@ -128,7 +128,7 @@ export class ExamplePlatformAccessory {
 
     this.timeout = setTimeout(function() {
       callback(null);
-    }, 2000);
+    }, 30000);
   }
 
   togglePower()
